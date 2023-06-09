@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
 
-export default function Login() {
+export default function Login({saveCurrentUser}) {
   let [errors, setErrors] = useState([]);
   let [statusError, setStatusError] = useState("");
   const navigate = useNavigate();
@@ -18,11 +18,11 @@ export default function Login() {
       email: "",
       password: "",
     },validationSchema:schema,
-    onSubmit: sendRegisterData,
+    onSubmit: sendLoginData,
   });
 
    
-  async function sendRegisterData(values) {
+  async function sendLoginData(values) {
     let { data } = await axios
       .post(
         "https://lazy-blue-sockeye-gear.cyclic.app/api/v1/auth/signin",
@@ -35,8 +35,9 @@ export default function Login() {
     if (data.message === "Done") {
       setErrors([])
       setStatusError('')
-      localStorage.getItem("userToken",data.access_token)
-      navigate('/home');
+      localStorage.getItem("userToken",data.access_token);
+      saveCurrentUser();
+      navigate('/cart');
       console.log("welcome");
       
     } else {
