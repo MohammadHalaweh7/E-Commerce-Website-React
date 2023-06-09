@@ -29,7 +29,7 @@ export default function Register() {
   async function sendRegisterData(values) {
     let { data } = await axios
       .post(
-        "https://precious-bass-tights.cyclic.app/auth/signup'",
+        "https://precious-bass-tights.cyclic.app/auth/signup",
         values
       )
       .catch((err) => {
