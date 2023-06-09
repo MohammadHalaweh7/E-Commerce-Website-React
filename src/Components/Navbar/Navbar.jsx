@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Navbar({ user , logout }) {
+export default function Navbar({ user, logout }) {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
@@ -49,9 +49,9 @@ export default function Navbar({ user , logout }) {
             {user ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" onClick={logout}>
+                  <p className="nav-link" onClick={logout}>
                     Logout
-                  </Link>
+                  </p>
                 </li>
               </>
             ) : (
@@ -63,9 +63,9 @@ export default function Navbar({ user , logout }) {
                 </li>
 
                 <li className="nav-item">
-                  <p className="nav-link" to="register">
+                  <Link className="nav-link" to="register">
                     Rigester
-                  </p>
+                  </Link>
                 </li>
               </>
             )}

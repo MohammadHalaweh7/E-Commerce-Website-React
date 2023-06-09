@@ -12,6 +12,7 @@ import NotFound from "./Components/NotFound/NotFound";
 import Products from "./Components/Products/Products";
 import jwt from "jwt-decode";
 import Cart from "./Components/Cart/Cart";
+import ProtectedRouter from "./Components/ProtectedRouter/ProtectedRouter";
 
 
 
@@ -35,7 +36,7 @@ export default function App() {
       children: [
         { index: true, element: <Home /> },
         { path: "products", element: <Products /> },
-        { path: "cart", element: <Cart /> },
+        { path: "cart", element: <ProtectedRouter><Cart /></ProtectedRouter> },
         { path: "register", element: <Register /> },
         { path: "login", element: <Login saveCurrentUser={saveCurrentUser} /> },
         { path: "*", element: <NotFound /> },
