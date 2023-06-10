@@ -12,15 +12,21 @@ export default function Category() {
     autoplay: true,
   };
 
-  const urlImagePrefix = "https://image.tmdb.org/t/p/w500";
   const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
 
   async function getCategory() {
     const { data } = await axios.get(
-      //   "https://king-prawn-app-3mgea.ondigitalocean.app/category"
-      "https://api.themoviedb.org/3/trending/all/day?api_key=d179b30015a65de52e0cb2b7dcd5bc52"
+      "https://king-prawn-app-3mgea.ondigitalocean.app/category"
     );
-    setCategories(data.results);
+    setCategories(data.category);
+  }
+
+  async function getSubCategories(id) {
+    const { data } = await axios.get(
+      "https://king-prawn-app-3mgea.ondigitalocean.app/category/${id}/subcategory"
+    );
+    setSubCategories(data.subcategory);
   }
 
   useEffect(() => {
@@ -33,23 +39,42 @@ export default function Category() {
         <h2>Category</h2>
         <Slider {...settings}>
           {categories.map((category) => (
-            <div className="col-md-3">
+            <div className="col-md-3" key={category.id}>
               <div className="card">
                 <img
                   className="card-img-top"
-                  src={urlImagePrefix + category.poster_path}
-                  alt={category.title}
+                  src={category.image.secure_url}
+                  alt={category.name}
                   style={{ width: "320px", height: "280px" }}
+                  onClick={() => getSubCategories(category.id)}
                 />
                 <div className="card-body">
                   <h5 className="card-title text-truncate overflow-hidden">
-                    {category.title}
+                    {category.name}
                   </h5>
                 </div>
               </div>
             </div>
           ))}
         </Slider>
+      </div>
+
+      <div className="mt-5">
+        <div className="row">
+          {subCategories.map((subcategory) => (
+            <div className="col-md-3" key={subcategory.id}>
+              <div className="sub-category">
+                <p>{subcategory.name}</p>
+                <img
+                  className="card-img-top"
+                  src={subcategory.image.secure_url}
+                  alt={subcategory.name}
+                  style={{ width: "320px", height: "280px" }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
