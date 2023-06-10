@@ -24,7 +24,7 @@ export default function Category() {
 
   async function getSubCategories(id) {
     const { data } = await axios.get(
-      "https://king-prawn-app-3mgea.ondigitalocean.app/category/${id}/subcategory"
+      `https://king-prawn-app-3mgea.ondigitalocean.app/category/${id}/subcategory`
     );
     setSubCategories(data.subcategory);
   }
