@@ -41,7 +41,13 @@ export default function Navbar({ user, logout }) {
                 </li>
               </>
             ) : (
-              ""
+              <>
+              <li className="nav-item">
+                <Link className="nav-link" to="cart">
+                  Cart
+                </Link>
+              </li>
+            </>
             )}
           </ul>
 
