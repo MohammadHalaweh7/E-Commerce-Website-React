@@ -21,7 +21,7 @@ export default function Products() {
         {
           products.map((product)=>
           <div>
-            <Link to={'/product/${product._id}'}>
+            <Link to={`/product/${product.slug}`} state={{id:product.id}}>
             <img src={product.mainImage.secure_url} alt={product.name} />
             <p>{product.name}</p>
             </Link>
