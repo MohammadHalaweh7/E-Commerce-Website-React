@@ -1,13 +1,24 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams , useLocation} from "react-router-dom";
+import { useContext } from "react";
+import { useParams, useLocation } from "react-router-dom";
+import { CartContext } from "../Context/CartStore";
 
 export default function ProductDetails() {
-//   const { id } = useParams();
   const [productDetails, setProductDetails] = useState({});
   const [productImages, setProductImages] = useState([]);
-  const location =useLocation();
-  const {id}=location.state;
+  const location = useLocation();
+  const { id } = location.state;
+
+  const { addToCartContext } = useContext(CartContext);
+  const [message, setMessage] = useState("");
+  async function addToCart(productId) {
+    const res = await addToCartContext(productId);
+    console.log(res);
+    if (res.message === "success") {
+      setMessage("Prosuct add successfully");
+    }
+  }
 
   async function getProductDetails() {
     const { data } = await axios.get(
@@ -26,8 +37,19 @@ export default function ProductDetails() {
       <div>{productDetails.name}</div>
       <h2>All images</h2>
       {productImages.map((image) => (
-        <img src={image.secure_url} alt="img name"  style={{ width: "320px", height: "280px" }} />
+        <img
+          src={image.secure_url}
+          alt="img name"
+          style={{ width: "320px", height: "280px" }}
+        />
       ))}
+      <button
+        onClick={() => addToCart(productDetails._id)}
+        className="btn btn-success mt-5"
+      >
+        Add to cart
+      </button>
+      {message ? <div className="alert alert-success">{message}</div> : ""}
     </>
   );
 }

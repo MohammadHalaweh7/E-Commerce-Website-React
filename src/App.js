@@ -14,8 +14,7 @@ import jwt from "jwt-decode";
 import Cart from "./Components/Cart/Cart";
 import ProtectedRouter from "./Components/ProtectedRouter/ProtectedRouter";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
-
-
+import { CartContextProvider } from "./Components/Context/CartStore";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -33,12 +32,19 @@ export default function App() {
   const routers = createBrowserRouter([
     {
       path: "",
-      element: <Layout user={user} setUser={setUser}/>,
+      element: <Layout user={user} setUser={setUser} />,
       children: [
         { index: true, element: <Home /> },
         { path: "products", element: <Products /> },
         { path: "product/:slug", element: <ProductDetails /> },
-        { path: "cart", element: <ProtectedRouter><Cart /></ProtectedRouter> },
+        {
+          path: "cart",
+          element: (
+            <ProtectedRouter>
+              <Cart />
+            </ProtectedRouter>
+          ),
+        },
         { path: "register", element: <Register /> },
         { path: "login", element: <Login saveCurrentUser={saveCurrentUser} /> },
         { path: "*", element: <NotFound /> },
@@ -46,5 +52,9 @@ export default function App() {
     },
   ]);
 
-  return <RouterProvider router={routers}></RouterProvider>;
+  return (
+    <CartContextProvider>
+      <RouterProvider router={routers}></RouterProvider>
+    </CartContextProvider>
+  );
 }
