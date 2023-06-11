@@ -9,7 +9,7 @@ export default function Layout({ user, setUser }) {
   function logout() {
     localStorage.removeItem("userToken");
     setUser(null);
-    navigate("./login");
+    navigate(`./login`);
   }
   return (
     <>

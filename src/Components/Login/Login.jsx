@@ -25,7 +25,7 @@ export default function Login({saveCurrentUser}) {
   async function sendLoginData(values) {
     let { data } = await axios
       .post(
-        "https://lazy-blue-sockeye-gear.cyclic.app/api/v1/auth/signin",
+        "https://king-prawn-app-3mgea.ondigitalocean.app/auth/login",
         values
       )
       .catch((err) => {
@@ -35,9 +35,9 @@ export default function Login({saveCurrentUser}) {
     if (data.message === "Done") {
       setErrors([])
       setStatusError('')
-      localStorage.getItem("userToken",data.access_token);
+      localStorage.setItem("userToken",data.access_token);
       saveCurrentUser();
-      navigate('/cart');
+      navigate(`/cart`);
       console.log("welcome");
       
     } else {
