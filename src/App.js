@@ -15,7 +15,7 @@ import Cart from "./Components/Cart/Cart";
 import ProtectedRouter from "./Components/ProtectedRouter/ProtectedRouter";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import { CartContextProvider } from "./Components/Context/CartStore";
-
+import { ToastContainer, toast } from 'react-toastify';
 export default function App() {
   const [user, setUser] = useState(null);
   function saveCurrentUser() {
@@ -54,6 +54,7 @@ export default function App() {
 
   return (
     <CartContextProvider>
+      <ToastContainer />
       <RouterProvider router={routers}></RouterProvider>
     </CartContextProvider>
   );

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { CartContext } from "../Context/CartStore";
+import { toast } from "react-toastify";
 
 export default function ProductDetails() {
   const [productDetails, setProductDetails] = useState({});
@@ -11,12 +12,11 @@ export default function ProductDetails() {
   const { id } = location.state;
 
   const { addToCartContext } = useContext(CartContext);
-  const [message, setMessage] = useState("");
   async function addToCart(productId) {
     const res = await addToCartContext(productId);
     console.log(res);
     if (res.message === "success") {
-      setMessage("Prosuct add successfully");
+      toast.success("Prosuct add successfully");
     }
   }
 
@@ -49,7 +49,6 @@ export default function ProductDetails() {
       >
         Add to cart
       </button>
-      {message ? <div className="alert alert-success">{message}</div> : ""}
     </>
   );
 }

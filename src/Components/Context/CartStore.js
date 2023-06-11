@@ -4,6 +4,7 @@ import { createContext } from "react";
 export const CartContext = createContext(null);
 
 export function CartContextProvider({children}) {
+    
   async function addToCartContext(productId) {
     try {
       const token = localStorage.getItem(`userToken`);
